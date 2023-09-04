@@ -1,0 +1,11 @@
+{
+  "name": "New 2048",
+  "version": "1.0.0",
+  "devDependencies": {
+    "html-webpack-plugin": "^5.5.3",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --open"
+  }
+}
