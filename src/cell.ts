@@ -23,47 +23,47 @@ export class Cell {
         this.linkedTileForMerge = null;
     }
 
-    linkTile(tile: Tile): void {
+    public linkTile(tile: Tile): void {
         tile.setXY(this.x, this.y);
         this.linkedTile = tile;
     }
 
-    unlinkTile(): void {
+    public unlinkTile(): void {
         this.linkedTile = null;
     }
 
-    removeLinkedTile(): void {
+    public removeLinkedTile(): void {
         if (this.linkedTile) {
             this.linkedTile.removeFromDOM();
             this.linkedTile = null;
         }
     }
 
-    isEmpty(): boolean {
+    public isEmpty(): boolean {
         return !this.linkedTile;
     }
 
-    linkTileForMerge(tile: Tile): void {
+    public linkTileForMerge(tile: Tile): void {
         tile.setXY(this.x, this.y);
         this.linkedTileForMerge = tile;
     }
 
-    unlinkTileForMerge(): void {
+    public unlinkTileForMerge(): void {
         this.linkedTileForMerge = null;
     }
 
-    hasTileForMerge(): boolean {
+    public hasTileForMerge(): boolean {
         return !!this.linkedTileForMerge;
     }
 
-    canAccept(newTile: Tile): boolean {
+    public canAccept(newTile: Tile): boolean {
         return (
             this.isEmpty() ||
             (!this.hasTileForMerge() && this.linkedTile!.value === newTile.value)
         );
     }
 
-    mergeTiles(): void {
+    public mergeTiles(): void {
         const mergedValue = this.linkedTile!.value + this.linkedTileForMerge!.value;
         this.linkedTile!.setValue(mergedValue);
         this.mergedScore = mergedValue;

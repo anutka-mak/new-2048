@@ -132,7 +132,7 @@ function moveTilesInGroup(group: Cell[], promises: Promise<void>[]): void {
             continue;
         }
 
-        promises.push(cellWithTile.linkedTile!.waitForTransitionEnd());
+        promises.push(cellWithTile.linkedTile!.transitionEnd());
 
         if (targetCell.isEmpty()) {
             targetCell.linkTile(cellWithTile.linkedTile!);
@@ -165,7 +165,7 @@ function canMove(groupedCells: Record<number, Cell[]>): boolean {
 }
 
 function canMoveInGroup(group: Cell[]): boolean {
-    return group.some((cell, index) => {
+    return group.some((cell, index: number): boolean => {
         if (index === 0) {
             return false;
         }
@@ -217,7 +217,7 @@ function restoreGameProgress(): void {
         });
 
         score.score = savedProgress[savedProgress.length - 1].score;
-        score.updateScoreDisplay();
+        score.updateDisplay();
     }
 }
 

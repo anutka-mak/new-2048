@@ -1,3 +1,8 @@
+:root {
+    --bg-lightness: 0;
+    --text-lightness: 0;
+}
+
 .body {
     display: flex;
     flex-direction: column;

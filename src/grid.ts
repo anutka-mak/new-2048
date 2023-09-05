@@ -1,9 +1,9 @@
 import { Score } from "./score";
 import { Cell } from "./cell";
-const GRID_SIZE = 4;
-const CELLS_COUNT = GRID_SIZE * GRID_SIZE;
 
 export class Grid {
+    gridSize: number = 4;
+    cellsCount: number = 16;
     cells: Cell[];
     cellsGroupedByColumn: Record<number, Cell[]>;
     cellsGroupedByReversedColumn: Record<number, Cell[]>;
@@ -12,9 +12,10 @@ export class Grid {
 
     constructor(gridElement: HTMLElement, score: Score) {
         this.cells = [];
-        for (let i = 0; i < CELLS_COUNT; i++) {
+
+        for (let i = 0; i < this.cellsCount; i++) {
             this.cells.push(
-                new Cell(gridElement, i % GRID_SIZE, Math.floor(i / GRID_SIZE), score)
+                new Cell(gridElement, i % this.gridSize, Math.floor(i / this.gridSize), score)
             );
         }
 
@@ -23,39 +24,43 @@ export class Grid {
         this.cellsGroupedByRow = this.groupCellsByRow();
         this.cellsGroupedByReversedRow = {};
 
-        for (const [key, column] of Object.entries(this.cellsGroupedByColumn)) {
+        for (const [key , column] of Object.entries(this.cellsGroupedByColumn)) {
             this.cellsGroupedByReversedColumn[key] = [...column].reverse();
         }
 
         for (const [key, row] of Object.entries(this.cellsGroupedByRow))  {
             this.cellsGroupedByReversedRow[key] = [...row].reverse();
         }
+
     }
 
-    clearGrid(): void {
+    public clearGrid(): void {
         this.cells.forEach(cell => {
             cell.removeLinkedTile();
         });
     }
 
-    getRandomEmptyCell(): Cell | undefined {
+    public getRandomEmptyCell(): Cell | null {
         const emptyCells  = this.cells.filter(cell => cell.isEmpty());
         const randomIndex = Math.floor(Math.random() * emptyCells.length);
-        return emptyCells[randomIndex];
+
+        return emptyCells[randomIndex] || null;
     }
 
-    groupCellsByColumn(): Record<number, Cell[]> {
+    public groupCellsByColumn(): Record<number, Cell[]> {
         return this.cells.reduce((groupedCells: Record<number, Cell[]>, cell: Cell) => {
             groupedCells[cell.x] = groupedCells[cell.x] || [];
             groupedCells[cell.x][cell.y] = cell;
+
             return groupedCells;
         }, {});
     }
 
-    groupCellsByRow(): Record<number, Cell[]> {
+    public groupCellsByRow(): Record<number, Cell[]> {
         return this.cells.reduce((groupedCells: Record<number, Cell[]>, cell: Cell) => {
             groupedCells[cell.y] = groupedCells[cell.y] || [];
             groupedCells[cell.y][cell.x] = cell;
+
             return groupedCells;
         }, {});
     }

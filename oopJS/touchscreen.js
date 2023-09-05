@@ -1,4 +1,4 @@
-export class TouchScreen {
+export class Touchscreen {
     constructor(gridElement, swipeCallbacks, updateScoreDisplay) {
         this.gridElement = gridElement;
         this.swipeCallbacks = swipeCallbacks;

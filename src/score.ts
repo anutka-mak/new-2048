@@ -5,22 +5,22 @@ export class Score {
     constructor() {
         this.score = 0;
         this.scoreElement = document.getElementById('score');
-        this.updateScoreDisplay();
+        this.updateDisplay();
     }
 
-    addScore(points: number): void {
+    public addScore(points: number): void {
         this.score += points;
-        this.updateScoreDisplay();
+        this.updateDisplay();
     }
 
-    updateScoreDisplay(): void {
+    public updateDisplay(): void {
         if (this.scoreElement) {
             this.scoreElement.textContent = this.score.toString();
         }
     }
 
-    resetScore(): void {
+    public resetScore(): void {
         this.score = 0;
-        this.updateScoreDisplay();
+        this.updateDisplay();
     }
 }
